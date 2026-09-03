@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { COMPANY_INFO, NAV_LINKS } from '@/lib/constants';
+import { COMPANY_INFO, NAV_LINKS, BUSINESS_AREAS } from '@/lib/constants';
 import { asset } from '@/lib/utils';
-import { MapPin, Phone, Mail, ArrowUpRight, ShieldCheck, Layers } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowUpRight, ShieldCheck, Building2 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -34,17 +34,17 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
-              Sourcing, purchasing, and processing raw geological materials from the earth and transforming them into valuable commodities for industry and society.
+              A Nigerian company engaged in mining, mineral resources, industrial services, general commerce and business solutions.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-2 text-[11px] font-mono">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-900 border border-stone-800 rounded text-stone-300">
                 <ShieldCheck className="w-3.5 h-3.5 text-gold" />
-                <span>Quality Assayed</span>
+                <span>Mining & Resources</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-900 border border-stone-800 rounded text-stone-300">
-                <Layers className="w-3.5 h-3.5 text-gold" />
-                <span>Plateau State, Nigeria</span>
+                <Building2 className="w-3.5 h-3.5 text-gold" />
+                <span>Industrial Koncepts</span>
               </span>
             </div>
           </div>
@@ -69,35 +69,25 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Core Operations (Col 8-9) */}
+          {/* Business Areas (Col 8-9) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-xs font-mono font-bold tracking-widest text-gold uppercase">
-              Operations
+              Business Areas
             </h4>
             <ul className="space-y-2.5 text-xs text-stone-400 font-mono">
+              {BUSINESS_AREAS.map((area) => (
+                <li key={area.id}>
+                  <Link
+                    to={`/business-areas#${area.id}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {area.shortTitle}
+                  </Link>
+                </li>
+              ))}
               <li>
-                <Link to="/operations" className="hover:text-white transition-colors">
-                  Mineral Sourcing
-                </Link>
-              </li>
-              <li>
-                <Link to="/operations" className="hover:text-white transition-colors">
-                  Magnetic Separation
-                </Link>
-              </li>
-              <li>
-                <Link to="/operations" className="hover:text-white transition-colors">
-                  Gravity Beneficiation
-                </Link>
-              </li>
-              <li>
-                <Link to="/operations" className="hover:text-white transition-colors">
-                  Density Concentration
-                </Link>
-              </li>
-              <li>
-                <Link to="/suppliers" className="hover:text-gold transition-colors">
-                  Supplier Onboarding
+                <Link to="/contact" className="hover:text-gold transition-colors">
+                  Commercial Inquiries
                 </Link>
               </li>
             </ul>
@@ -108,55 +98,58 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-mono font-bold tracking-widest text-gold uppercase">
               Corporate Office
             </h4>
-            <div className="space-y-3 text-xs text-stone-300">
-              <div className="flex items-start gap-2.5">
+            <div className="space-y-3 text-xs text-stone-400 font-mono">
+              <p className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                <address className="not-italic leading-relaxed text-stone-400">
+                <span className="leading-relaxed">
                   {COMPANY_INFO.address}
-                </address>
-              </div>
-
-              <div className="flex items-center gap-2.5">
+                </span>
+              </p>
+              <p className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold shrink-0" />
                 <a
                   href={`tel:${COMPANY_INFO.phoneClean}`}
-                  className="hover:text-gold transition-colors font-mono font-bold"
+                  className="hover:text-gold transition-colors"
                 >
                   {COMPANY_INFO.phone}
                 </a>
-              </div>
-
-              <div className="flex items-center gap-2.5">
+              </p>
+              <p className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-gold shrink-0" />
                 <a
                   href={`mailto:${COMPANY_INFO.email}`}
-                  className="hover:text-gold transition-colors font-mono"
+                  className="hover:text-gold transition-colors"
                 >
                   {COMPANY_INFO.email}
                 </a>
-              </div>
+              </p>
             </div>
 
             <div className="pt-2">
               <Link
-                to="/suppliers"
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold/15 border border-gold/40 rounded text-xs font-mono text-gold hover:bg-gold/25 transition-colors font-bold"
+                to="/contact"
+                className="inline-flex items-center text-xs font-mono font-bold text-gold hover:text-gold-light transition-colors"
               >
-                <span>Supplier Portal →</span>
+                <span>COMMERCIAL CONTACT DESK</span>
+                <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500 font-mono">
-          <p>© {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-stone-400 cursor-pointer">Privacy Policy</span>
+        {/* Corporate Legal & Compliance Bottom Strip */}
+        <div className="pt-8 border-t border-stone-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-stone-500">
+          <p>
+            &copy; {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center gap-6 text-[11px]">
+            <span>MINERAL RESOURCES</span>
             <span>•</span>
-            <span className="hover:text-stone-400 cursor-pointer">Terms of Engagement</span>
+            <span>FABRICATION</span>
             <span>•</span>
-            <span className="text-stone-600">Plateau State Mineral Corridor</span>
+            <span>COMMERCE</span>
+            <span>•</span>
+            <span>NIGERIA</span>
           </div>
         </div>
       </div>

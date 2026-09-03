@@ -1,9 +1,11 @@
 import React from 'react';
-import { PURPOSE_STAGES, OPERATIONS } from '@/lib/constants';
+import { Link } from 'react-router-dom';
+import { PURPOSE_STAGES, COMPANY_INFO } from '@/lib/constants';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { HeroIntro } from '@/components/sections/HeroIntro';
+import { BusinessAreasSection } from '@/components/sections/BusinessAreasSection';
 import { ValueChainDiagram } from '@/components/sections/ValueChainDiagram';
 import { FacilityGallery } from '@/components/sections/FacilityGallery';
 import { PillarsGrid } from '@/components/sections/PillarsGrid';
@@ -14,8 +16,10 @@ import {
   Cpu,
   Truck,
   MapPin,
-  CheckCircle2,
-  ChevronRight
+  ChevronRight,
+  Phone,
+  Mail,
+  ArrowRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -43,7 +47,7 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFE6] to-[#FAF8F5]">
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFE6] to-[#FAF8F5]">
         {/* Background Image with 50% Overlay */}
         <div className="absolute inset-0 z-0">
           <img
@@ -57,20 +61,22 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="max-w-6xl mx-auto w-full relative z-10 text-center flex flex-col items-center">
-          {/* Metadata Top Pill */}
+          {/* Metadata Top Line */}
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-6 inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-4 py-2 rounded-full bg-white/90 border border-gold/40 text-[10px] sm:text-xs font-mono font-bold text-stone-800 shadow-sm backdrop-blur-sm"
+            className="mb-6 inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 py-2 rounded-full bg-white/90 border border-gold/40 text-[10px] sm:text-xs font-mono font-bold text-stone-800 shadow-sm backdrop-blur-sm"
           >
-            <span className="text-gold-deep">MINERAL RESOURCES</span>
+            <span className="text-gold-deep font-black">MINING</span>
             <span className="text-stone-300">•</span>
-            <span>SOURCING</span>
+            <span>FABRICATION</span>
             <span className="text-stone-300">•</span>
-            <span>PROCESSING</span>
+            <span>IMPORT & EXPORT</span>
             <span className="text-stone-300">•</span>
-            <span className="text-sky-800">INDUSTRIAL VALUE</span>
+            <span>GENERAL CONTRACTS</span>
+            <span className="text-stone-300">•</span>
+            <span className="text-stone-900 font-black">MERCHANDISE</span>
           </motion.div>
 
           {/* Core Hero Headline */}
@@ -80,9 +86,8 @@ export const HomePage: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tight text-stone-900 uppercase max-w-5xl leading-[1.08] mb-6"
           >
-            WE TURN EARTH'S <br className="hidden sm:inline" />
-            <span className="text-gold-gradient">RESOURCES INTO</span> <br className="hidden sm:inline" />
-            INDUSTRIAL VALUE.
+            FROM MINERAL RESOURCES <br className="hidden sm:inline" />
+            <span className="text-gold-gradient">TO INDUSTRIAL SOLUTIONS.</span>
           </motion.h1>
 
           {/* Supporting Copy */}
@@ -92,7 +97,7 @@ export const HomePage: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="text-base sm:text-lg md:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10 font-normal"
           >
-            Ariel Mines and Koncepts Ltd is focused on the sourcing, purchasing and processing of raw geological materials into valuable commodities for society and industry.
+            {COMPANY_INFO.heroSupporting}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -103,7 +108,7 @@ export const HomePage: React.FC = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           >
             <Button
-              href="/operations"
+              href="/business-areas"
               variant="primary"
               size="lg"
               className="w-full sm:w-auto shadow-md"
@@ -112,7 +117,7 @@ export const HomePage: React.FC = () => {
               Explore Our Business
             </Button>
             <Button
-              href="/suppliers"
+              href="/contact"
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto"
@@ -135,14 +140,14 @@ export const HomePage: React.FC = () => {
             <div className="flex items-center gap-2 text-stone-700">
               <span>EST. NIGERIA</span>
               <span className="text-stone-300">|</span>
-              <span className="text-gold-deep">GLOBAL COMMODITY REACH</span>
+              <span className="text-gold-deep">DIVERSIFIED INDUSTRIAL COMMERCE</span>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. "FROM THE EARTH. FOR THE WORLD." SECTION */}
+      {/* 2. FROM THE EARTH. FOR THE WORLD. */}
       {/* ========================================================================= */}
       <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#F3EFEA] relative border-t border-b border-stone-200">
         <div className="max-w-6xl mx-auto">
@@ -160,14 +165,14 @@ export const HomePage: React.FC = () => {
             {/* Right Narrative Copy */}
             <div className="lg:col-span-6 space-y-6 text-stone-700 text-base sm:text-lg leading-relaxed font-normal">
               <p>
-                The global economy depends on the continuous, dependable availability of refined mineral commodities. Yet between underground deposits and modern industrial manufacturing lies an immense gap in sourcing, processing, and standard compliance.
+                Ariel Mines and Koncepts Ltd brings together mining, mineral resources, industrial services and general commerce under one professional business identity.
               </p>
               <p className="text-stone-600 text-sm sm:text-base">
-                Ariel Mines and Koncepts Ltd bridges this vital gap. Located in the mineral-abundant corridors of Plateau State, Nigeria, we identify, purchase, beneficiate, and supply geological materials—transforming raw earth resources into high-purity industrial commodities that drive sustainable economic expansion.
+                Located in the mineral-abundant corridors of Plateau State, Nigeria, we identify, purchase, beneficiate, and export geological materials while delivering precision metal fabrication, cross-border commerce, general contracts, and merchandise supply for modern industry.
               </p>
               <div className="pt-2">
                 <Button href="/about" variant="gold-outline" size="sm" withArrow>
-                  Learn About Our Foundation
+                  Learn About Our Company
                 </Button>
               </div>
             </div>
@@ -176,7 +181,12 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. OUR PURPOSE (4-STAGE PROCESS) */}
+      {/* 3 & 4. MORE THAN MINING. BUILT FOR INDUSTRY. (BUSINESS AREAS) */}
+      {/* ========================================================================= */}
+      <BusinessAreasSection />
+
+      {/* ========================================================================= */}
+      {/* 5. OUR PURPOSE (4-STAGE PROCESS) */}
       {/* ========================================================================= */}
       <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5] relative">
         <div className="max-w-7xl mx-auto">
@@ -225,90 +235,31 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. OUR OPERATIONS */}
+      {/* 6. OUR APPROACH (STANDARDS & VALUE PILLARS) */}
       {/* ========================================================================= */}
       <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#F3EFEA] relative border-t border-stone-200">
         <div className="max-w-7xl mx-auto">
           <SectionHeader
-            badge="Core Framework"
-            subtitle="Operational Excellence"
-            title="OUR OPERATIONS"
-            description="From raw geological procurement to high-gradient beneficiation and industrial supply distribution."
+            badge="Strategic Approach"
+            subtitle="The Standard of Excellence"
+            title="OUR APPROACH: QUALITY. CONSISTENCY. INTEGRITY."
+            description="Our commercial reputation is anchored in four uncompromising commitments across all mineral sourcing, fabrication, and trade operations."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {OPERATIONS.map((op) => (
-              <div
-                key={op.id}
-                className="bg-white border border-stone-200 hover:border-gold/60 rounded-sm overflow-hidden transition-all duration-300 group flex flex-col justify-between shadow-sm hover:shadow-card-hover"
-              >
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-stone-100">
-                  <img
-                    src={op.image}
-                    alt={op.title}
-                    className="w-full h-full object-cover filter brightness-95 group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                  <div className="absolute top-4 left-4">
-                    <Badge variant="gold">Phase {op.id}</Badge>
-                  </div>
-                </div>
+          <PillarsGrid />
 
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-                  <div>
-                    <p className="text-xs font-mono font-bold tracking-widest text-gold-deep uppercase mb-1">
-                      {op.subtitle}
-                    </p>
-                    <h3 className="text-2xl font-heading font-black text-stone-900 uppercase mb-3 group-hover:text-gold-deep transition-colors">
-                      {op.title}
-                    </h3>
-                    <p className="text-sm text-stone-600 leading-relaxed mb-6">
-                      {op.description}
-                    </p>
-
-                    <div className="space-y-2 mb-6">
-                      {op.features.map((feature, fIdx) => (
-                        <div key={fIdx} className="flex items-start gap-2.5 text-xs font-mono font-semibold text-stone-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-gold-deep shrink-0 mt-0.5" />
-                          <span>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
-                    <Button href="/operations" variant="outline" size="sm" withArrow>
-                      Explore Capabilities
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="mt-12 text-center">
+            <Button href="/approach" variant="outline" size="md" withArrow>
+              Explore Our Full Strategic Approach
+            </Button>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. VALUE PROPOSITION (4 PILLARS) */}
+      {/* 7. RESOURCE VALUE CHAIN & FACILITY ASSETS */}
       {/* ========================================================================= */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5] relative">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeader
-            badge="Core Philosophy"
-            subtitle="The Standard of Excellence"
-            title="QUALITY IS NOT A CLAIM. IT'S OUR STANDARD."
-            description="Our commercial reputation is anchored in four uncompromising commitments to our suppliers and industrial partners."
-          />
-
-          <PillarsGrid />
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 6. RESOURCE VALUE CHAIN */}
-      {/* ========================================================================= */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#F3EFEA] relative border-t border-b border-stone-200">
+      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5] relative border-t border-b border-stone-200">
         <div className="max-w-7xl mx-auto">
           <SectionHeader
             badge="End-to-End Pipeline"
@@ -318,22 +269,16 @@ export const HomePage: React.FC = () => {
           />
 
           <ValueChainDiagram />
-        </div>
-      </section>
 
-      {/* ========================================================================= */}
-      {/* 7. AUTHENTIC PROCESSING FACILITY & MACHINERY SHOWCASE */}
-      {/* ========================================================================= */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5] relative">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeader
-            badge="Operational Assets"
-            subtitle="Sabon Barki, Jos Processing Hub"
-            title="INFRASTRUCTURE & BENEFICIATION SYSTEMS"
-            description="Tour our active industrial processing equipment, magnetic separators, density tables, and classification facilities."
-          />
-
-          <FacilityGallery />
+          <div className="mt-20">
+            <SectionHeader
+              badge="Operational Infrastructure"
+              subtitle="Sabon Barki, Jos Processing Grounds"
+              title="MINERAL BENEFICIATION FACILITIES"
+              description="Tour our active industrial processing equipment, magnetic separators, density tables, and classification facilities."
+            />
+            <FacilityGallery />
+          </div>
         </div>
       </section>
 
@@ -347,78 +292,82 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 9. RESPONSIBLE RESOURCE DEVELOPMENT */}
-      {/* ========================================================================= */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5] relative">
-        <div className="max-w-5xl mx-auto text-center">
-          <Badge variant="gold">Sustainable Economic Growth</Badge>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black text-stone-900 uppercase tracking-tight mt-4 mb-6">
-            BUILDING VALUE. <span className="text-gold-gradient">RESPONSIBLY.</span>
-          </h2>
-
-          <p className="text-base sm:text-lg text-stone-600 leading-relaxed max-w-3xl mx-auto mb-10">
-            Ariel Mines and Koncepts Ltd believes that enduring industrial value can only be achieved through responsible resource development, transparent supplier engagements, rigorous quality standards, and long-term economic stewardship.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-10">
-            <div className="p-6 bg-white border border-stone-200 rounded-sm shadow-sm">
-              <h4 className="font-heading font-black text-stone-900 uppercase text-base mb-2">
-                Long-Term Value
-              </h4>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Investing in physical beneficiation infrastructure that outlasts short-term market cycles.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white border border-stone-200 rounded-sm shadow-sm">
-              <h4 className="font-heading font-black text-stone-900 uppercase text-base mb-2">
-                Fair Sourcing
-              </h4>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Empowering extraction networks and mining communities with transparent commercial pricing.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white border border-stone-200 rounded-sm shadow-sm">
-              <h4 className="font-heading font-black text-stone-900 uppercase text-base mb-2">
-                Standardized Supply
-              </h4>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Eliminating industrial supply friction through consistent grading and quality verification.
-              </p>
-            </div>
-          </div>
-
-          <Button href="/approach" variant="primary" size="lg" withArrow>
-            Read Our Strategic Approach
-          </Button>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 10. SUPPLIER & PARTNER CTA */}
+      {/* 9. PARTNER WITH US */}
       {/* ========================================================================= */}
       <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#110E0B] text-white relative overflow-hidden border-t border-gold/40">
         <div className="absolute inset-0 bg-gold-gradient-light opacity-10" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <Badge variant="gold">Supplier Ingestion Desk</Badge>
+          <Badge variant="gold">Commercial Engagement</Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black text-white uppercase tracking-tight mt-4 mb-4">
-            WE'RE LOOKING FOR QUALITY RESOURCES.
+            PARTNER WITH ARIEL MINES AND KONCEPTS.
           </h2>
 
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto leading-relaxed mb-8">
-            Are you a supplier, miner, or syndicate with raw geological materials? Connect with Ariel Mines and Koncepts to explore dependable purchase agreements and industrial processing off-take.
+            Whether you are supplying raw minerals, requiring custom industrial fabrication, seeking trade opportunities, or placing commercial contracts, Ariel Mines and Koncepts Ltd is ready to partner.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button href="/suppliers" variant="primary" size="lg" withArrow>
-              Become a Supplier
+            <Button href="/contact" variant="primary" size="lg" withArrow>
+              Partner With Us
             </Button>
-            <Button href="/contact" variant="outline" size="lg" className="bg-transparent text-white border-white/30 hover:text-gold-deep hover:bg-white">
-              Contact Corporate Desk
+            <Button
+              href="/business-areas"
+              variant="outline"
+              size="lg"
+              className="bg-transparent text-white border-white/30 hover:text-gold-deep hover:bg-white"
+            >
+              Explore Business Areas
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 10. CONTACT / CORPORATE DIRECTORY STRIP */}
+      {/* ========================================================================= */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-cream border-t border-stone-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center bg-white p-8 rounded-sm border border-stone-200 shadow-sm">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-bold tracking-widest text-gold-deep uppercase">
+                Corporate Location
+              </span>
+              <h4 className="font-heading text-lg font-bold text-stone-900">
+                Jos Operations Hub
+              </h4>
+              <p className="text-xs text-stone-600">
+                Plot 10247 Sabon Barki, Jos Bukuru Road, Plateau State, Nigeria
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-bold tracking-widest text-gold-deep uppercase">
+                Direct Communications
+              </span>
+              <h4 className="font-heading text-lg font-bold text-stone-900">
+                Inquiries & Contracts
+              </h4>
+              <div className="flex flex-col text-xs text-stone-600 gap-1 font-mono">
+                <a href="tel:+2348139630807" className="hover:text-gold-deep transition-colors flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-gold-deep" />
+                  +234 813 963 0807
+                </a>
+                <a href="mailto:arielbulus7@gmail.com" className="hover:text-gold-deep transition-colors flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-gold-deep" />
+                  arielbulus7@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div className="flex justify-start md:justify-end">
+              <Link to="/contact">
+                <Button variant="primary" size="md">
+                  <span>Send an Inquiry</span>
+                  <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

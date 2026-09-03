@@ -18,7 +18,7 @@ export const AboutPage: React.FC = () => {
             WHO WE ARE
           </h1>
           <p className="text-base sm:text-xl text-stone-600 max-w-3xl mx-auto leading-relaxed">
-            Ariel Mines and Koncepts Ltd is focused on the sourcing, purchasing, and processing of raw geological materials, transforming raw earth resources into valuable commodities for industry and society.
+            Ariel Mines and Koncepts Ltd is a Nigerian company engaged in mining, mineral resources, industrial services, general commerce and business solutions.
           </p>
         </div>
       </section>
@@ -27,20 +27,20 @@ export const AboutPage: React.FC = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-6">
-            <Badge variant="gold">Geological Foundation</Badge>
+            <Badge variant="gold">Industrial & Commercial Foundation</Badge>
             <h2 className="text-2xl sm:text-4xl font-heading font-black text-stone-900 uppercase leading-tight">
-              Bridging Raw Earth & Industrial Supply
+              From Mineral Resources to Industrial Solutions
             </h2>
             <p className="text-sm sm:text-base text-stone-700 leading-relaxed">
-              Founded in the mineral-rich territory of Plateau State, Nigeria, Ariel Mines and Koncepts Ltd was created to address persistent market inefficiencies in raw geological material availability and beneficiation.
+              Founded in Plateau State, Nigeria, Ariel Mines and Koncepts Ltd operates with mineral resources at its core while expanding into precision welding, industrial metal fabrication, cross-border commerce, general contracts, and merchandise supply.
             </p>
             <p className="text-sm sm:text-base text-stone-600 leading-relaxed">
-              Rather than treating mineral trading as a detached transaction, Ariel operates on the ground with direct procurement desks, physical density classification, and electromagnetic separation systems. This hands-on capability ensures that every batch sourced meets stringent industrial purity thresholds.
+              By uniting field-tested mineral processing with versatile industrial services and commercial execution, Ariel provides institutional off-takers, suppliers, and project partners with dependable execution certainty across multiple sectors.
             </p>
 
             <div className="p-4 bg-amber-50/80 border-l-4 border-gold rounded-r text-xs font-mono text-stone-800 space-y-1 shadow-sm">
-              <span className="text-gold-deep font-bold block">CORPORATE CORE POSITIONING</span>
-              <span>Quality • Consistency • Integrity • Reliability</span>
+              <span className="text-gold-deep font-bold block">FIVE INTEGRATED BUSINESS AREAS</span>
+              <span>Mining & Minerals • Fabrication • Import-Export • Contracts • Merchandise</span>
             </div>
           </div>
 

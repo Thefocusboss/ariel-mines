@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
           {/* Primary CTA & Mobile Hamburger */}
           <div className="flex items-center gap-3">
             <Button
-              href="/suppliers"
+              href="/contact"
               variant="primary"
               size="sm"
               className="hidden sm:inline-flex"
@@ -174,13 +174,13 @@ export const Navbar: React.FC = () => {
 
               <div className="pt-4 border-t border-stone-200 space-y-3">
                 <Button
-                  href="/suppliers"
+                  href="/contact"
                   variant="primary"
                   size="md"
                   className="w-full justify-center"
                   withArrow
                 >
-                  Become a Supplier
+                  Partner With Us
                 </Button>
                 <Button
                   href="/contact"
