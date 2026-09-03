@@ -8,6 +8,7 @@ import { ValueChainDiagram } from '@/components/sections/ValueChainDiagram';
 import { FacilityGallery } from '@/components/sections/FacilityGallery';
 import { PillarsGrid } from '@/components/sections/PillarsGrid';
 import { NigeriaGlobalMap } from '@/components/sections/NigeriaGlobalMap';
+import { asset } from '@/lib/utils';
 import {
   Layers,
   Cpu,
@@ -46,7 +47,7 @@ export const HomePage: React.FC = () => {
         {/* Background Image with 50% Overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/facility-exterior.jpg"
+            src={asset('images/facility-exterior.jpg')}
             alt="Ariel Mines Processing Facility Jos"
             className="w-full h-full object-cover filter brightness-95 contrast-105"
           />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { asset } from '@/lib/utils';
 
 export const HeroIntro: React.FC = () => {
   const [stage, setStage] = useState(0);
@@ -51,7 +52,7 @@ export const HeroIntro: React.FC = () => {
             className="w-28 h-28 sm:w-32 sm:h-32 rounded-sm overflow-hidden border border-gold/40 bg-black p-1 shadow-2xl mb-6 flex items-center justify-center"
           >
             <img
-              src="/images/company-logo.png"
+              src={asset('images/company-logo.png')}
               alt="Ariel Mines and Koncepts"
               className="w-full h-full object-contain"
             />

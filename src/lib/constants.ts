@@ -1,3 +1,5 @@
+import { asset } from './utils';
+
 export interface NavItem {
   label: string;
   href: string;
@@ -78,7 +80,7 @@ export const OPERATIONS = [
       'Continuous supply chain security',
       'Fair, transparent trade relationships'
     ],
-    image: '/images/facility-exterior.jpg',
+    image: asset('images/facility-exterior.jpg'),
   },
   {
     id: '02',
@@ -91,7 +93,7 @@ export const OPERATIONS = [
       'Shaking table density concentration',
       'Vibrating screen particle sizing'
     ],
-    image: '/images/magnetic-separator-unit.jpg',
+    image: asset('images/magnetic-separator-unit.jpg'),
   },
   {
     id: '03',
@@ -104,7 +106,7 @@ export const OPERATIONS = [
       'Infrastructure modernization',
       'Responsible extraction stewardship'
     ],
-    image: '/images/vibrating-screen-deck.jpg',
+    image: asset('images/vibrating-screen-deck.jpg'),
   },
   {
     id: '04',
@@ -117,7 +119,7 @@ export const OPERATIONS = [
       'Consistent grade conformity across shipments',
       'Laboratory assay grade certification'
     ],
-    image: '/images/shaker-table-operation.jpg',
+    image: asset('images/shaker-table-operation.jpg'),
   },
 ];
 
@@ -209,7 +211,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'Central Processing & Staging Grounds',
     location: 'Plot 10247 Sabon Barki, Jos Bukuru Road, Plateau State',
     description: 'Main operational hub and processing grounds for raw mineral intake, vehicle ramp staging, consignment loading, and operational administration.',
-    image: '/images/facility-exterior.jpg',
+    image: asset('images/facility-exterior.jpg'),
     badge: 'Central Hub',
     category: 'Facility',
   },
@@ -217,7 +219,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'Geological Assay & Quality Testing Station',
     location: 'Quality Control Laboratory',
     description: 'Laboratory testing workbench equipped with specific gravity titration apparatus, pycnometer calibration, and chemical purity assaying tools.',
-    image: '/images/laboratory-assay-bench.jpg',
+    image: asset('images/laboratory-assay-bench.jpg'),
     badge: 'Assay Lab',
     category: 'Laboratory',
   },
@@ -225,7 +227,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'Vibrating Screen & Particle Sizing Deck',
     location: 'Primary Screening Bay',
     description: 'Inclined vibrating screen classifier and overhead feed hopper for precise grain-size fractionation and particle separation before separation.',
-    image: '/images/vibrating-screen-deck.jpg',
+    image: asset('images/vibrating-screen-deck.jpg'),
     badge: 'Particle Sizing',
     category: 'Machinery',
   },
@@ -233,7 +235,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'High-Gradient Magnetic Separator Unit',
     location: 'Magnetic Separation Bay',
     description: 'Industrial electromagnetic separator separating magnetic fractions, paramagnetic ores, and non-magnetic tailings with automated control switchboards.',
-    image: '/images/magnetic-separator-unit.jpg',
+    image: asset('images/magnetic-separator-unit.jpg'),
     badge: 'Magnetic Separation',
     category: 'Machinery',
   },
@@ -241,7 +243,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'Shaking Table Density Concentrator',
     location: 'Concentration Facility',
     description: 'Precision mechanical shaker table separating high-density heavy minerals from light gangue minerals in real-time continuous operation.',
-    image: '/images/shaker-table-operation.jpg',
+    image: asset('images/shaker-table-operation.jpg'),
     badge: 'Density Separation',
     category: 'Machinery',
   },
@@ -249,7 +251,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'Multi-Stage Gravity Classification Chutes',
     location: 'Classification Bay',
     description: 'Cascading stainless chute system performing grain-size classification and hydraulic gravity separation with staged bagged mineral inventory.',
-    image: '/images/gravity-separation-system.jpg',
+    image: asset('images/gravity-separation-system.jpg'),
     badge: 'Gravity Separation',
     category: 'Machinery',
   },
@@ -257,7 +259,7 @@ export const FACILITY_ASSETS: FacilityAsset[] = [
     title: 'Magnetic Processing Core Mechanics',
     location: 'Technical Workshop',
     description: 'Internal multi-tier induction and rotor assembly engineered for precise magnetic field gradation and high-grade mineral recovery.',
-    image: '/images/magnetic-separator-open.jpg',
+    image: asset('images/magnetic-separator-open.jpg'),
     badge: 'Core Technology',
     category: 'Machinery',
   },

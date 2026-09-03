@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_INFO, NAV_LINKS } from '@/lib/constants';
+import { asset } from '@/lib/utils';
 import { MapPin, Phone, Mail, ArrowUpRight, ShieldCheck, Layers } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -17,7 +18,7 @@ export const Footer: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 shrink-0 flex items-center justify-center">
                 <img
-                  src="/images/company-logo.png"
+                  src={asset('images/company-logo.png')}
                   alt="Ariel Mines and Koncepts Ltd Logo"
                   className="w-full h-full object-contain"
                 />

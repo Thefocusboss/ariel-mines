@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_LINKS, COMPANY_INFO } from '@/lib/constants';
 import { Button } from '@/components/ui/Button';
+import { asset } from '@/lib/utils';
 import { Menu, X, Phone, Mail, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -74,7 +75,7 @@ export const Navbar: React.FC = () => {
             {/* Exact Logo Emblem */}
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-sm overflow-hidden border border-gold/40 bg-black p-0.5 shadow-sm group-hover:border-gold transition-colors">
               <img
-                src="/images/company-logo.png"
+                src={asset('images/company-logo.png')}
                 alt="Ariel Mines and Koncepts Logo"
                 className="w-full h-full object-contain"
               />

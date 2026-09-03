@@ -3,6 +3,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { PillarsGrid } from '@/components/sections/PillarsGrid';
+import { asset } from '@/lib/utils';
 import {
   Scale,
   Cpu,
@@ -106,7 +107,7 @@ export const ApproachPage: React.FC = () => {
             <div className="lg:col-span-5">
               <div className="relative aspect-[3/4] sm:aspect-square lg:aspect-[3/4] rounded-sm overflow-hidden border border-stone-200 shadow-xl bg-white group">
                 <img
-                  src="/images/laboratory-assay-bench.jpg"
+                  src={asset('images/laboratory-assay-bench.jpg')}
                   alt="Geological Assay and Density Testing Station"
                   className="w-full h-full object-cover filter brightness-95 group-hover:scale-105 transition-transform duration-700"
                 />

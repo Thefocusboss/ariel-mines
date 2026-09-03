@@ -4,6 +4,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { PillarsGrid } from '@/components/sections/PillarsGrid';
+import { asset } from '@/lib/utils';
 import { Target, Eye } from 'lucide-react';
 
 export const AboutPage: React.FC = () => {
@@ -46,7 +47,7 @@ export const AboutPage: React.FC = () => {
           <div className="lg:col-span-6 relative">
             <div className="aspect-[4/3] rounded-sm overflow-hidden border border-stone-200 shadow-xl bg-stone-100 relative">
               <img
-                src="/images/facility-exterior.jpg"
+                src={asset('images/facility-exterior.jpg')}
                 alt="Ariel Mines Operational Grounds"
                 className="w-full h-full object-cover filter brightness-95"
               />
