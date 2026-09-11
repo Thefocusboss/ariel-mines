@@ -55,7 +55,7 @@ export const HomePage: React.FC = () => {
             alt="Ariel Mines Processing Facility Jos"
             className="w-full h-full object-cover filter brightness-95 contrast-105"
           />
-          <div className="absolute inset-0 bg-[#FAF8F5]/50 backdrop-blur-[1px]" />
+          <div className="absolute inset-0 bg-[#ffff]/70 backdrop-blur-[1px]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F5] via-transparent to-[#FAF8F5]/40 opacity-50" />
           <div className="absolute inset-0 bg-grid-pattern opacity-25" />
         </div>
