@@ -17,7 +17,10 @@ import {
   Radio,
   Server,
   Layers,
-  ArrowLeft
+  ArrowLeft,
+  RefreshCw,
+  Key,
+  Globe
 } from 'lucide-react';
 
 export const AdminPage: React.FC = () => {
@@ -26,10 +29,16 @@ export const AdminPage: React.FC = () => {
     adminEmail,
     isMaintenanceMode,
     maintenanceConfig,
+    githubToken,
+    isSyncing,
+    lastSyncedAt,
+    syncError,
     login,
     logout,
+    setGithubToken,
     toggleMaintenanceMode,
     updateMaintenanceConfig,
+    fetchRemoteStatus,
   } = useAdmin();
 
   // Login form state
@@ -47,6 +56,11 @@ export const AdminPage: React.FC = () => {
   const [emergencyEmail, setEmergencyEmail] = useState(maintenanceConfig.emergencyEmail);
   const [savedSuccess, setSavedSuccess] = useState(false);
 
+  // GitHub token state
+  const [tokenInput, setTokenInput] = useState(githubToken);
+  const [tokenSaved, setTokenSaved] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
@@ -57,9 +71,9 @@ export const AdminPage: React.FC = () => {
     }
   };
 
-  const handleSaveConfig = (e: React.FormEvent) => {
+  const handleSaveConfig = async (e: React.FormEvent) => {
     e.preventDefault();
-    updateMaintenanceConfig({
+    await updateMaintenanceConfig({
       headline,
       message,
       expectedReturnTime,
@@ -68,6 +82,19 @@ export const AdminPage: React.FC = () => {
     });
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 3000);
+  };
+
+  const handleSaveToken = (e: React.FormEvent) => {
+    e.preventDefault();
+    setGithubToken(tokenInput);
+    setTokenSaved(true);
+    setTimeout(() => setTokenSaved(false), 3000);
+  };
+
+  const handleManualRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchRemoteStatus();
+    setTimeout(() => setIsRefreshing(false), 600);
   };
 
   // =========================================================================
@@ -218,6 +245,16 @@ export const AdminPage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              onClick={handleManualRefresh}
+              disabled={isRefreshing}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-stone-900 border border-stone-700 text-xs font-mono text-stone-300 hover:text-gold hover:border-gold transition-colors"
+              title="Refresh remote production status"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-gold' : ''}`} />
+              <span className="hidden sm:inline">Sync Status</span>
+            </button>
+
             <Link
               to="/"
               target="_blank"
@@ -259,7 +296,7 @@ export const AdminPage: React.FC = () => {
           <div className="flex items-center gap-3 bg-white p-3 rounded-sm border border-stone-200 shadow-sm">
             <div className="flex flex-col text-right">
               <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider font-bold">
-                Public Website State
+                Global Production State
               </span>
               <span
                 className={`text-sm font-mono font-black ${
@@ -268,6 +305,11 @@ export const AdminPage: React.FC = () => {
               >
                 {isMaintenanceMode ? 'MAINTENANCE MODE ACTIVE' : 'LIVE & OPERATIONAL'}
               </span>
+              {lastSyncedAt && (
+                <span className="text-[10px] font-mono text-stone-400">
+                  Updated: {new Date(lastSyncedAt).toLocaleTimeString()}
+                </span>
+              )}
             </div>
             <div
               className={`w-4 h-4 rounded-full flex items-center justify-center ${
@@ -285,11 +327,21 @@ export const AdminPage: React.FC = () => {
           </div>
         </div>
 
+        {syncError && (
+          <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded text-xs text-red-800 flex items-start gap-3">
+            <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold block">Production Cloud Sync Warning</span>
+              <span>{syncError}</span>
+            </div>
+          </div>
+        )}
+
         {/* 1. PRIMARY MAINTENANCE TOGGLE CARD */}
         <div
           className={`p-6 sm:p-8 rounded-sm border transition-all duration-300 shadow-lg ${
             isMaintenanceMode
-              ? 'bg-amber-50/70 border-amber-300'
+              ? 'bg-amber-50/80 border-amber-300'
               : 'bg-white border-stone-200'
           }`}
         >
@@ -302,7 +354,7 @@ export const AdminPage: React.FC = () => {
                   }`}
                 />
                 <span className="text-xs font-mono font-bold uppercase tracking-widest text-stone-600">
-                  Global Site Availability Switch
+                  Production Site Availability Switch
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-heading font-black text-stone-900 uppercase">
@@ -312,23 +364,32 @@ export const AdminPage: React.FC = () => {
               </h2>
               <p className="text-sm text-stone-700 leading-relaxed">
                 {isMaintenanceMode
-                  ? 'Public visitors navigating to any page will see the dedicated executive maintenance notice. Direct telephone and email channels remain listed on screen.'
-                  : 'The public website is fully accessible worldwide. All 5 business area pathways, inquiry forms, and company assets are live.'}
+                  ? 'Public visitors navigating to any page worldwide will see the dedicated executive maintenance screen. Direct phone and email channels remain listed on screen.'
+                  : 'The public website is live across the globe. All 5 business area pathways, contact desks, and company assets are accessible to visitors.'}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
               <button
                 onClick={toggleMaintenanceMode}
+                disabled={isSyncing}
                 className={`w-full sm:w-auto px-6 py-3.5 rounded-sm font-mono text-xs font-black uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2.5 ${
                   isMaintenanceMode
                     ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
                     : 'bg-amber-600 hover:bg-amber-700 text-white'
-                }`}
+                } ${isSyncing ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                <Power className="w-4 h-4" />
+                {isSyncing ? (
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Power className="w-4 h-4" />
+                )}
                 <span>
-                  {isMaintenanceMode ? 'Deactivate Maintenance (Go Live)' : 'Activate Maintenance Mode'}
+                  {isSyncing
+                    ? 'Syncing to Cloud...'
+                    : isMaintenanceMode
+                    ? 'Deactivate Maintenance (Go Live)'
+                    : 'Activate Maintenance Mode'}
                 </span>
               </button>
 
@@ -336,13 +397,67 @@ export const AdminPage: React.FC = () => {
                 to="/"
                 className="w-full sm:w-auto px-5 py-3.5 rounded-sm font-mono text-xs font-bold uppercase tracking-wider border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 text-center transition-colors"
               >
-                View Live Site
+                Preview Site
               </Link>
             </div>
           </div>
         </div>
 
-        {/* 2. MAINTENANCE MESSAGE CUSTOMIZER */}
+        {/* 2. REAL-TIME CLOUD PRODUCTION SYNC SETTINGS */}
+        <div className="bg-white rounded-sm border border-stone-200 p-6 sm:p-8 shadow-sm">
+          <div className="flex items-center justify-between border-b border-stone-100 pb-4 mb-6">
+            <div className="flex items-center gap-2.5">
+              <Globe className="w-5 h-5 text-gold-deep" />
+              <div>
+                <span className="text-xs font-mono font-bold uppercase tracking-widest text-gold-deep block">
+                  Global Cloud Synchronization
+                </span>
+                <h3 className="font-heading text-lg font-black text-stone-900 uppercase">
+                  Production Sync Configuration
+                </h3>
+              </div>
+            </div>
+
+            {tokenSaved && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-mono font-bold rounded">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Token Connected</span>
+              </span>
+            )}
+          </div>
+
+          <div className="space-y-4">
+            <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Because Ariel Mines is deployed globally on CDN edges (GitHub Pages & Cloudflare Pages), visitors on other computers and mobile devices fetch maintenance status from your synchronized cloud endpoint.
+            </p>
+
+            <form onSubmit={handleSaveToken} className="space-y-3">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-700">
+                GitHub Personal Access Token (PAT)
+              </label>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Key className="w-4 h-4 text-stone-400 absolute left-3.5 top-3" />
+                  <input
+                    type="password"
+                    value={tokenInput}
+                    onChange={(e) => setTokenInput(e.target.value)}
+                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or gho_xxxxxxxxxxxxxxxxxxxx"
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-300 rounded-sm text-xs font-mono text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold"
+                  />
+                </div>
+                <Button type="submit" variant="primary" size="md">
+                  <span>Save Token</span>
+                </Button>
+              </div>
+              <p className="text-[11px] font-mono text-stone-500">
+                With this token saved, toggling maintenance mode above automatically writes to the production cloud endpoint in 1 click, instantly activating maintenance mode for every visitor on earth.
+              </p>
+            </form>
+          </div>
+        </div>
+
+        {/* 3. MAINTENANCE MESSAGE CUSTOMIZER */}
         <div className="bg-white rounded-sm border border-stone-200 p-6 sm:p-8 shadow-sm">
           <div className="flex items-center justify-between border-b border-stone-100 pb-4 mb-6">
             <div>
@@ -354,9 +469,9 @@ export const AdminPage: React.FC = () => {
               </h3>
             </div>
             {savedSuccess && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-mono font-bold rounded animate-fadeIn">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-mono font-bold rounded">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Settings Saved</span>
+                <span>Notice Saved & Broadcasted</span>
               </span>
             )}
           </div>
@@ -434,15 +549,14 @@ export const AdminPage: React.FC = () => {
             <div className="pt-2 flex items-center justify-end gap-4">
               <Button type="submit" variant="primary" size="md">
                 <Save className="w-4 h-4 mr-2" />
-                <span>Save Maintenance Notice</span>
+                <span>Save & Broadcast Notice</span>
               </Button>
             </div>
           </form>
         </div>
 
-        {/* 3. PLATFORM & BUSINESS AREAS OVERVIEW */}
+        {/* 4. PLATFORM & BUSINESS AREAS OVERVIEW */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Card 1: System Info */}
           <div className="p-6 bg-white rounded-sm border border-stone-200 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
               <Server className="w-4 h-4 text-gold-deep" />
@@ -460,17 +574,16 @@ export const AdminPage: React.FC = () => {
                 <span className="font-bold text-stone-900">Cloudflare & GitHub Pages</span>
               </div>
               <div className="flex justify-between py-1 border-b border-stone-100">
-                <span>App Framework:</span>
-                <span className="font-bold text-stone-900">React 18 + Vite 6</span>
+                <span>Cloud Sync Gist:</span>
+                <span className="font-bold text-stone-900">838f52c00f65b98192d6c68c2f3fb12d</span>
               </div>
               <div className="flex justify-between py-1">
-                <span>Active Routing:</span>
-                <span className="font-bold text-stone-900">Single Page App (HashRouter)</span>
+                <span>Real-Time Polling:</span>
+                <span className="font-bold text-emerald-700">Active (30s interval)</span>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Business Portfolio */}
           <div className="p-6 bg-white rounded-sm border border-stone-200 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-gold-deep" />
@@ -488,7 +601,6 @@ export const AdminPage: React.FC = () => {
             </ul>
           </div>
 
-          {/* Card 3: Administrator Credentials */}
           <div className="p-6 bg-white rounded-sm border border-stone-200 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
               <Radio className="w-4 h-4 text-gold-deep" />
